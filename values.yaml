@@ -5,6 +5,7 @@ traefik:
 cert-manager:
   enabled: true
   namespace: "cert-manager"
+  installCRDs: true
 
 replicaCount: 1
 
