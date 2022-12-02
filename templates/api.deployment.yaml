@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kotal-api
+spec:
+  selector:
+    matchLabels:
+      app: kotal-api
+  template:
+    metadata:
+      labels:
+        app: kotal-api
+    spec:
+      containers:
+        - name: kotal-api
+          image: kotalco/cloud-api:592fc18
+          env:
+            - name: DB_SERVER_URL
+              value: postgres://postgres:secret@database:5432/postgres
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "512Mi"
+            limits:
+              cpu: "2"
+              memory: "2Gi"
+          ports:
+            - containerPort: 6000
