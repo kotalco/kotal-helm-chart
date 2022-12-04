@@ -26,3 +26,10 @@ spec:
               memory: "2Gi"
           ports:
             - containerPort: 5432
+          volumeMounts:
+            - name: database
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: database
+          persistentVolumeClaim:
+            claimName: database
