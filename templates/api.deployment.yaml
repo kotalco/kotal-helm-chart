@@ -16,7 +16,9 @@ spec:
           image: kotalco/cloud-api:592fc18
           env:
             - name: DB_SERVER_URL
-              value: postgres://postgres:secret@database:5432/postgres
+              value: "postgres://postgres:secret@database:5432/postgres"
+            - name: SUBSCRIPTION_API_BASE_URL
+              value: https://subscriptions.kotal.network
           resources:
             requests:
               cpu: "500m"
