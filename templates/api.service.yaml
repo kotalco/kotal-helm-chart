@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kotal-api
+spec:
+  selector:
+    app: kotal-api
+  ports:
+    - port: 6000
+      targetPort: 6000
