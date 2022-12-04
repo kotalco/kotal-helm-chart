@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kotal-dashboard
+spec:
+  selector:
+    matchLabels:
+      app: kotal-dashboard
+  template:
+    metadata:
+      labels:
+        app: kotal-dashboard
+    spec:
+      containers:
+        - name: kotal-dashboard
+          image: kotalco/cloud-dashboard:faf5cf0
+          env:
+            - name: NEXT_PUBLIC_BASE_URL
+              value: /api/v1
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 3000
