@@ -11,6 +11,7 @@ spec:
       labels:
         app: kotal-api
     spec:
+      serviceAccountName: kotal-api
       containers:
         - name: kotal-api
           image: kotalco/cloud-api:592fc18
