@@ -14,7 +14,7 @@ spec:
       serviceAccountName: kotal-api
       containers:
         - name: kotal-api
-          image: kotalco/cloud-api:592fc18
+          image: kotalco/cloud-api:6398209
           env:
             - name: DB_SERVER_URL
               value: "postgres://postgres:secret@database:5432/postgres"
