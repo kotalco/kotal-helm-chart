@@ -1,6 +1,13 @@
 traefik:
   enabled: true
   namespaceOverride: traefik
+  persistence:
+    enabled: true
+    path: /data
+  additionalArguments:
+    - "--certificatesresolvers.myresolver.acme.tlschallenge"
+    - "--certificatesresolvers.myresolver.acme.email=mostafa@kotal.co"
+    - "--certificatesresolvers.myresolver.acme.storage=/data/acme.json"
 
 cert-manager:
   enabled: true
