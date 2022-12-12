@@ -14,6 +14,13 @@ cert-manager:
   namespace: "cert-manager"
   installCRDs: true
 
+postgresql:
+  enabled: true
+  auth:
+    username: satoshi
+    password: secret
+    database: kotal
+
 replicaCount: 1
 
 image:

@@ -13,3 +13,7 @@ dependencies:
     version: "20.5.3"
     repository: "https://traefik.github.io/charts"
     condition: "traefik.enabled"
+  - name: "postgresql"
+    version: "12.1.3"
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: "postgresql.enabled"
