@@ -23,9 +23,8 @@ spec:
             - name: SUBSCRIPTION_API_BASE_URL
               value: https://staging-subscriptions-api.kotal.co
           resources:
-            resources:
-              requests:
-                cpu: "50m"
-                memory: "100Mi"
+            requests:
+              cpu: "50m"
+              memory: "100Mi"
           ports:
             - containerPort: 6000
