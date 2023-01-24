@@ -21,14 +21,37 @@ traefik:
         volumeMounts:
           - name: data
             mountPath: /data
+  resources:
+    requests:
+      cpu: "10m"
+      memory: "50Mi"
 
 cert-manager:
   enabled: true
   namespace: "cert-manager"
   installCRDs: true
+  resources:
+    requests:
+      cpu: "10m"
+      memory: "50Mi"
+  webhook:
+    resources:
+      requests:
+        cpu: "5m"
+        memory: "25Mi"
+  cainjector:
+    resources:
+      requests:
+        cpu: "5m"
+        memory: "25Mi"
 
 postgresql:
   enabled: true
+  primary:
+    resources:
+      requests:
+        cpu: "50m"
+        memory: "100Mi"
   auth:
     username: satoshi
     password: secret
