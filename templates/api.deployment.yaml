@@ -14,14 +14,14 @@ spec:
       serviceAccountName: kotal-api
       containers:
         - name: kotal-api
-          image: kotalco/cloud-api:f3bcf4a
+          image: kotalco/cloud-api:641bbd1
           env:
             - name: ENVIRONMENT
               value: production
             - name: DB_SERVER_URL
               value: "postgres://satoshi:secret@kotal-postgresql:5432/kotal"
             - name: SUBSCRIPTION_API_BASE_URL
-              value: https://staging-subscriptions-api.kotal.co
+              value: https://staging-subscriptions.kotal.co/api
           resources:
             requests:
               cpu: "50m"
