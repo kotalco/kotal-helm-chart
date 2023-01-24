@@ -21,7 +21,7 @@ spec:
             - name: DB_SERVER_URL
               value: "postgres://satoshi:secret@kotal-postgresql:5432/kotal"
             - name: SUBSCRIPTION_API_BASE_URL
-              value: https://staging-subscriptions.kotal.co/api
+              value: https://{{ if .Values.staging }}staging-{{ end }}subscriptions.kotal.co/api
           resources:
             requests:
               cpu: "50m"

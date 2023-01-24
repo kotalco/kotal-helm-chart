@@ -1,3 +1,5 @@
+staging: false
+
 traefik:
   enabled: true
   namespaceOverride: traefik
