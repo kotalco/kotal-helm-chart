@@ -1,0 +1,143 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    cert-manager.io/inject-ca-from: kotal/serving-cert
+    controller-gen.kubebuilder.io/version: v0.8.0
+  name: nodes.near.kotal.io
+spec:
+  group: near.kotal.io
+  names:
+    kind: Node
+    listKind: NodeList
+    plural: nodes
+    singular: node
+  scope: Namespaced
+  versions:
+    - additionalPrinterColumns:
+        - jsonPath: .spec.network
+          name: Network
+          type: string
+        - jsonPath: .status.client
+          name: Client
+          type: string
+        - jsonPath: .spec.validator
+          name: Validator
+          priority: 10
+          type: boolean
+      name: v1alpha1
+      schema:
+        openAPIV3Schema:
+          description: Node is the Schema for the nodes API
+          properties:
+            apiVersion:
+              description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources"
+              type: string
+            kind:
+              description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+              type: string
+            metadata:
+              type: object
+            spec:
+              description: NodeSpec defines the desired state of Node
+              properties:
+                archive:
+                  description: Archive keeps old blocks in the storage
+                  type: boolean
+                bootnodes:
+                  description: Bootnodes is array of boot nodes to bootstrap network from
+                  items:
+                    type: string
+                  type: array
+                  x-kubernetes-list-type: set
+                image:
+                  description: Image is NEAR node client image
+                  type: string
+                minPeers:
+                  description: MinPeers is minimum number of peers to start syncing/producing blocks
+                  type: integer
+                network:
+                  description: Network is NEAR network to join and sync
+                  enum:
+                    - mainnet
+                    - testnet
+                    - betanet
+                  type: string
+                nodePrivateKeySecretName:
+                  description: NodePrivateKeySecretName is the secret name holding node Ed25519 private key
+                  type: string
+                p2pHost:
+                  description: P2PHost is p2p host
+                  type: string
+                p2pPort:
+                  description: P2PPort is p2p port
+                  type: integer
+                prometheusHost:
+                  description: PrometheusHost is prometheus exporter host
+                  type: string
+                prometheusPort:
+                  description: PrometheusPort is prometheus exporter port
+                  type: integer
+                resources:
+                  description: Resources is node compute and storage resources
+                  properties:
+                    cpu:
+                      description: CPU is cpu cores the node requires
+                      pattern: ^[1-9][0-9]*m?$
+                      type: string
+                    cpuLimit:
+                      description: CPULimit is cpu cores the node is limited to
+                      pattern: ^[1-9][0-9]*m?$
+                      type: string
+                    memory:
+                      description: Memory is memmory requirements
+                      pattern: ^[1-9][0-9]*[KMGTPE]i$
+                      type: string
+                    memoryLimit:
+                      description: MemoryLimit is cpu cores the node is limited to
+                      pattern: ^[1-9][0-9]*[KMGTPE]i$
+                      type: string
+                    storage:
+                      description: Storage is disk space storage requirements
+                      pattern: ^[1-9][0-9]*[KMGTPE]i$
+                      type: string
+                    storageClass:
+                      description: StorageClass is the volume storage class
+                      type: string
+                  type: object
+                rpc:
+                  description: RPC enables JSON-RPC server
+                  type: boolean
+                rpcHost:
+                  description: RPCHost is JSON-RPC server listening host
+                  type: string
+                rpcPort:
+                  description: RPCPort is JSON-RPC server listening port
+                  type: integer
+                telemetryURL:
+                  description: TelemetryURL is telemetry service URL
+                  type: string
+                validatorSecretName:
+                  description: ValidatorSecretName is the secret name holding node Ed25519 validator key
+                  type: string
+              required:
+                - network
+              type: object
+            status:
+              description: NodeStatus defines the observed state of Node
+              properties:
+                client:
+                  type: string
+              type: object
+          type: object
+      served: true
+      storage: true
+      subresources:
+        status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []

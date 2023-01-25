@@ -1,0 +1,166 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    cert-manager.io/inject-ca-from: kotal/serving-cert
+    controller-gen.kubebuilder.io/version: v0.8.0
+  name: nodes.chainlink.kotal.io
+spec:
+  group: chainlink.kotal.io
+  names:
+    kind: Node
+    listKind: NodeList
+    plural: nodes
+    singular: node
+  scope: Namespaced
+  versions:
+    - additionalPrinterColumns:
+        - jsonPath: .status.client
+          name: Client
+          type: string
+        - jsonPath: .spec.ethereumChainId
+          name: EthereumChainId
+          type: number
+        - jsonPath: .spec.linkContractAddress
+          name: LinkContractAddress
+          priority: 10
+          type: string
+      name: v1alpha1
+      schema:
+        openAPIV3Schema:
+          description: Node is the Schema for the nodes API
+          properties:
+            apiVersion:
+              description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources"
+              type: string
+            kind:
+              description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+              type: string
+            metadata:
+              type: object
+            spec:
+              description: NodeSpec defines the desired state of Node
+              properties:
+                api:
+                  description: API enables node API server
+                  type: boolean
+                apiCredentials:
+                  description: APICredentials is api credentials
+                  properties:
+                    email:
+                      description: Email is user email
+                      type: string
+                    passwordSecretName:
+                      description: PasswordSecretName is the k8s secret name that holds password
+                      type: string
+                  required:
+                    - email
+                    - passwordSecretName
+                  type: object
+                apiPort:
+                  description: APIPort is port used for node API and GUI
+                  type: integer
+                certSecretName:
+                  description: CertSecretName is k8s secret name that holds tls.key and tls.cert
+                  type: string
+                corsDomains:
+                  description: CORSDomains is the domains from which to accept cross origin requests
+                  items:
+                    type: string
+                  type: array
+                  x-kubernetes-list-type: set
+                databaseURL:
+                  description: DatabaseURL is postgres database connection URL
+                  type: string
+                ethereumChainId:
+                  description: EthereumChainId is ethereum chain id
+                  type: integer
+                ethereumHttpEndpoints:
+                  description: EthereumHTTPEndpoints is ethereum http endpoints
+                  items:
+                    type: string
+                  type: array
+                  x-kubernetes-list-type: set
+                ethereumWsEndpoint:
+                  description: EthereumWSEndpoint is ethereum websocket endpoint
+                  type: string
+                image:
+                  description: Image is Chainlink node client image
+                  type: string
+                keystorePasswordSecretName:
+                  description: KeystorePasswordSecretName is k8s secret name that holds keystore password
+                  type: string
+                linkContractAddress:
+                  description: LinkContractAddress is link contract address
+                  type: string
+                logging:
+                  description: Logging is logging verboisty level
+                  enum:
+                    - debug
+                    - info
+                    - warn
+                    - error
+                    - panic
+                  type: string
+                p2pPort:
+                  description: P2PPort is port used for p2p communcations
+                  type: integer
+                resources:
+                  description: Resources is node compute and storage resources
+                  properties:
+                    cpu:
+                      description: CPU is cpu cores the node requires
+                      pattern: ^[1-9][0-9]*m?$
+                      type: string
+                    cpuLimit:
+                      description: CPULimit is cpu cores the node is limited to
+                      pattern: ^[1-9][0-9]*m?$
+                      type: string
+                    memory:
+                      description: Memory is memmory requirements
+                      pattern: ^[1-9][0-9]*[KMGTPE]i$
+                      type: string
+                    memoryLimit:
+                      description: MemoryLimit is cpu cores the node is limited to
+                      pattern: ^[1-9][0-9]*[KMGTPE]i$
+                      type: string
+                    storage:
+                      description: Storage is disk space storage requirements
+                      pattern: ^[1-9][0-9]*[KMGTPE]i$
+                      type: string
+                    storageClass:
+                      description: StorageClass is the volume storage class
+                      type: string
+                  type: object
+                secureCookies:
+                  description: SecureCookies enables secure cookies for authentication
+                  type: boolean
+                tlsPort:
+                  description: TLSPort is port used for HTTPS connections
+                  type: integer
+              required:
+                - apiCredentials
+                - databaseURL
+                - ethereumChainId
+                - ethereumWsEndpoint
+                - keystorePasswordSecretName
+                - linkContractAddress
+              type: object
+            status:
+              description: NodeStatus defines the observed state of Node
+              properties:
+                client:
+                  type: string
+              type: object
+          type: object
+      served: true
+      storage: true
+      subresources:
+        status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []

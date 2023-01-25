@@ -1,0 +1,134 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    cert-manager.io/inject-ca-from: kotal/serving-cert
+    controller-gen.kubebuilder.io/version: v0.8.0
+  name: clusterpeers.ipfs.kotal.io
+spec:
+  group: ipfs.kotal.io
+  names:
+    kind: ClusterPeer
+    listKind: ClusterPeerList
+    plural: clusterpeers
+    singular: clusterpeer
+  scope: Namespaced
+  versions:
+    - additionalPrinterColumns:
+        - jsonPath: .status.client
+          name: Client
+          type: string
+        - jsonPath: .spec.consensus
+          name: Consensus
+          type: string
+      name: v1alpha1
+      schema:
+        openAPIV3Schema:
+          description: ClusterPeer is the Schema for the clusterpeers API
+          properties:
+            apiVersion:
+              description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources"
+              type: string
+            kind:
+              description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+              type: string
+            metadata:
+              type: object
+            spec:
+              description: ClusterPeerSpec defines the desired state of ClusterPeer
+              properties:
+                bootstrapPeers:
+                  description: BootstrapPeers are ipfs cluster peers to connect to
+                  items:
+                    type: string
+                  type: array
+                  x-kubernetes-list-type: set
+                clusterSecretName:
+                  description: ClusterSecretName is k8s secret holding cluster secret
+                  type: string
+                consensus:
+                  description: Consensus is ipfs cluster consensus algorithm
+                  enum:
+                    - crdt
+                    - raft
+                  type: string
+                id:
+                  description: ID is the the cluster peer id
+                  type: string
+                image:
+                  description: Image is ipfs cluster peer client image
+                  type: string
+                logging:
+                  description: Logging is logging verboisty level
+                  enum:
+                    - error
+                    - warn
+                    - info
+                    - debug
+                  type: string
+                peerEndpoint:
+                  description: PeerEndpoint is ipfs peer http API endpoint
+                  type: string
+                privateKeySecretName:
+                  description: PrivateKeySecretName is k8s secret holding private key
+                  type: string
+                resources:
+                  description: Resources is node compute and storage resources
+                  properties:
+                    cpu:
+                      description: CPU is cpu cores the node requires
+                      pattern: ^[1-9][0-9]*m?$
+                      type: string
+                    cpuLimit:
+                      description: CPULimit is cpu cores the node is limited to
+                      pattern: ^[1-9][0-9]*m?$
+                      type: string
+                    memory:
+                      description: Memory is memmory requirements
+                      pattern: ^[1-9][0-9]*[KMGTPE]i$
+                      type: string
+                    memoryLimit:
+                      description: MemoryLimit is cpu cores the node is limited to
+                      pattern: ^[1-9][0-9]*[KMGTPE]i$
+                      type: string
+                    storage:
+                      description: Storage is disk space storage requirements
+                      pattern: ^[1-9][0-9]*[KMGTPE]i$
+                      type: string
+                    storageClass:
+                      description: StorageClass is the volume storage class
+                      type: string
+                  type: object
+                trustedPeers:
+                  description: TrustedPeers is CRDT trusted cluster peers who can manage the pinset
+                  items:
+                    type: string
+                  type: array
+                  x-kubernetes-list-type: set
+              required:
+                - clusterSecretName
+                - peerEndpoint
+              type: object
+            status:
+              description: ClusterPeerStatus defines the observed state of ClusterPeer
+              properties:
+                client:
+                  type: string
+                consensus:
+                  type: string
+              required:
+                - client
+                - consensus
+              type: object
+          type: object
+      served: true
+      storage: true
+      subresources:
+        status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []

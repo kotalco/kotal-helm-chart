@@ -1,0 +1,248 @@
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  annotations:
+    cert-manager.io/inject-ca-from: kotal/serving-cert
+  name: validating-webhook-configuration
+webhooks:
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: webhook-service
+        namespace: kotal
+        path: /validate-aptos-kotal-io-v1alpha1-node
+    failurePolicy: Fail
+    name: validate-aptos-v1alpha1-node.kb.io
+    rules:
+      - apiGroups:
+          - aptos.kotal.io
+        apiVersions:
+          - v1alpha1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - nodes
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: webhook-service
+        namespace: kotal
+        path: /validate-bitcoin-kotal-io-v1alpha1-node
+    failurePolicy: Fail
+    name: validate-bitcoin-v1alpha1-node.kb.io
+    rules:
+      - apiGroups:
+          - bitcoin.kotal.io
+        apiVersions:
+          - v1alpha1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - nodes
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: webhook-service
+        namespace: kotal
+        path: /validate-chainlink-kotal-io-v1alpha1-node
+    failurePolicy: Fail
+    name: validate-chainlink-v1alpha1-node.kb.io
+    rules:
+      - apiGroups:
+          - chainlink.kotal.io
+        apiVersions:
+          - v1alpha1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - nodes
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: webhook-service
+        namespace: kotal
+        path: /validate-ethereum-kotal-io-v1alpha1-node
+    failurePolicy: Fail
+    name: validate-ethereum-v1alpha1-node.kb.io
+    rules:
+      - apiGroups:
+          - ethereum.kotal.io
+        apiVersions:
+          - v1alpha1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - nodes
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: webhook-service
+        namespace: kotal
+        path: /validate-ethereum2-kotal-io-v1alpha1-beaconnode
+    failurePolicy: Fail
+    name: validate-ethereum2-v1alpha1-beaconnode.kb.io
+    rules:
+      - apiGroups:
+          - ethereum2.kotal.io
+        apiVersions:
+          - v1alpha1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - beaconnodes
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: webhook-service
+        namespace: kotal
+        path: /validate-ethereum2-kotal-io-v1alpha1-validator
+    failurePolicy: Fail
+    name: validate-ethereum2-v1alpha1-validator.kb.io
+    rules:
+      - apiGroups:
+          - ethereum2.kotal.io
+        apiVersions:
+          - v1alpha1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - validators
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: webhook-service
+        namespace: kotal
+        path: /validate-filecoin-kotal-io-v1alpha1-node
+    failurePolicy: Fail
+    name: validate-filecoin-v1alpha1-node.kb.io
+    rules:
+      - apiGroups:
+          - filecoin.kotal.io
+        apiVersions:
+          - v1alpha1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - nodes
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: webhook-service
+        namespace: kotal
+        path: /validate-ipfs-kotal-io-v1alpha1-clusterpeer
+    failurePolicy: Fail
+    name: validate-ipfs-v1alpha1-clusterpeer.kb.io
+    rules:
+      - apiGroups:
+          - ipfs.kotal.io
+        apiVersions:
+          - v1alpha1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - clusterpeers
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: webhook-service
+        namespace: kotal
+        path: /validate-ipfs-kotal-io-v1alpha1-peer
+    failurePolicy: Fail
+    name: validate-ipfs-v1alpha1-peer.kb.io
+    rules:
+      - apiGroups:
+          - ipfs.kotal.io
+        apiVersions:
+          - v1alpha1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - peers
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: webhook-service
+        namespace: kotal
+        path: /validate-near-kotal-io-v1alpha1-node
+    failurePolicy: Fail
+    name: validate-near-v1alpha1-node.kb.io
+    rules:
+      - apiGroups:
+          - near.kotal.io
+        apiVersions:
+          - v1alpha1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - nodes
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: webhook-service
+        namespace: kotal
+        path: /validate-polkadot-kotal-io-v1alpha1-node
+    failurePolicy: Fail
+    name: validate-polkadot-v1alpha1-node.kb.io
+    rules:
+      - apiGroups:
+          - polkadot.kotal.io
+        apiVersions:
+          - v1alpha1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - nodes
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: webhook-service
+        namespace: kotal
+        path: /validate-stacks-kotal-io-v1alpha1-node
+    failurePolicy: Fail
+    name: validate-stacks-v1alpha1-node.kb.io
+    rules:
+      - apiGroups:
+          - stacks.kotal.io
+        apiVersions:
+          - v1alpha1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - nodes
+    sideEffects: None

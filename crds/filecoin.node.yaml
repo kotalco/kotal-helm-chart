@@ -1,0 +1,136 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    cert-manager.io/inject-ca-from: kotal/serving-cert
+    controller-gen.kubebuilder.io/version: v0.8.0
+  name: nodes.filecoin.kotal.io
+spec:
+  group: filecoin.kotal.io
+  names:
+    kind: Node
+    listKind: NodeList
+    plural: nodes
+    singular: node
+  scope: Namespaced
+  versions:
+    - additionalPrinterColumns:
+        - jsonPath: .spec.network
+          name: Network
+          type: string
+        - jsonPath: .status.client
+          name: Client
+          type: string
+      name: v1alpha1
+      schema:
+        openAPIV3Schema:
+          description: Node is the Schema for the nodes API
+          properties:
+            apiVersion:
+              description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources"
+              type: string
+            kind:
+              description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+              type: string
+            metadata:
+              type: object
+            spec:
+              description: NodeSpec defines the desired state of Node
+              properties:
+                api:
+                  description: API enables API server
+                  type: boolean
+                apiHost:
+                  description: APIHost is API server host
+                  type: string
+                apiPort:
+                  description: APIPort is API server listening port
+                  type: integer
+                apiRequestTimeout:
+                  description: APIRequestTimeout is API request timeout in seconds
+                  type: integer
+                disableMetadataLog:
+                  description: DisableMetadataLog disables metadata log
+                  type: boolean
+                image:
+                  description: Image is Filecoin node client image
+                  type: string
+                ipfsForRetrieval:
+                  description: IPFSForRetrieval uses ipfs for retrieval
+                  type: boolean
+                ipfsOnlineMode:
+                  description: IPFSOnlineMode sets ipfs online mode
+                  type: boolean
+                ipfsPeerEndpoint:
+                  description: IPFSPeerEndpoint is ipfs peer endpoint
+                  type: string
+                logging:
+                  description: Logging is logging verboisty level
+                  enum:
+                    - error
+                    - warn
+                    - info
+                    - debug
+                  type: string
+                network:
+                  description: Network is the Filecoin network the node will join and sync
+                  enum:
+                    - mainnet
+                    - calibration
+                  type: string
+                p2pHost:
+                  description: P2PHost is p2p host
+                  type: string
+                p2pPort:
+                  description: P2PPort is p2p port
+                  type: integer
+                resources:
+                  description: Resources is node compute and storage resources
+                  properties:
+                    cpu:
+                      description: CPU is cpu cores the node requires
+                      pattern: ^[1-9][0-9]*m?$
+                      type: string
+                    cpuLimit:
+                      description: CPULimit is cpu cores the node is limited to
+                      pattern: ^[1-9][0-9]*m?$
+                      type: string
+                    memory:
+                      description: Memory is memmory requirements
+                      pattern: ^[1-9][0-9]*[KMGTPE]i$
+                      type: string
+                    memoryLimit:
+                      description: MemoryLimit is cpu cores the node is limited to
+                      pattern: ^[1-9][0-9]*[KMGTPE]i$
+                      type: string
+                    storage:
+                      description: Storage is disk space storage requirements
+                      pattern: ^[1-9][0-9]*[KMGTPE]i$
+                      type: string
+                    storageClass:
+                      description: StorageClass is the volume storage class
+                      type: string
+                  type: object
+              required:
+                - network
+              type: object
+            status:
+              description: NodeStatus defines the observed state of Node
+              properties:
+                client:
+                  type: string
+              required:
+                - client
+              type: object
+          type: object
+      served: true
+      storage: true
+      subresources:
+        status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []
