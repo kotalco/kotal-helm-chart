@@ -4,6 +4,8 @@ kind: Certificate
 metadata:
   name: serving-cert
   namespace: kotal
+  annotations:
+    helm.sh/hook: "post-install,post-upgrade"
 spec:
   dnsNames:
     - webhook-service.kotal.svc
