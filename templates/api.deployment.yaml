@@ -14,7 +14,7 @@ spec:
       serviceAccountName: kotal-api
       containers:
         - name: kotal-api
-          image: kotalco/cloud-api:641bbd1
+          image: kotalco/cloud-api:8cc250c
           env:
             - name: ENVIRONMENT
               value: production
