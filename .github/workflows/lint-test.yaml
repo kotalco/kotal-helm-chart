@@ -39,7 +39,10 @@ jobs:
           changed=$(ct list-changed --target-branch chart-releaser)
           if [[ -n "$changed" ]]; then
             echo "::set-output name=changed::true"
-          fi
+          fi 
+
+      - name: Run chart-dependency-update
+        run: helm dependency update charts/kotal
 
       - name: Run chart-testing (lint)
         run: ct lint --target-branch chart-releaser
