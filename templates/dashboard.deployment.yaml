@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: kotal-dashboard
-          image: kotalco/cloud-dashboard:0f1eda7
+          image: kotalco/cloud-dashboard:df8126c
           env:
             - name: NEXT_PUBLIC_BASE_URL
               value: /api/v1
