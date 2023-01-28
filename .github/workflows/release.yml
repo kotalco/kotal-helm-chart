@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - chart-releaser
     tags:
       - 'v*'
 
