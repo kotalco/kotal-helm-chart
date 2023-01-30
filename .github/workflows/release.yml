@@ -2,6 +2,8 @@ name: Release Charts
 
 on:
   push:
+    branches:
+      - chart-releaser
     tags:
       - 'v*'
 
@@ -36,5 +38,6 @@ jobs:
         uses: helm/chart-releaser-action@v1.5.0
         with:
           charts_dir: charts
+          charts_repo_url: https://kotalco.github.io/charts
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
