@@ -6,6 +6,9 @@ metadata:
     control-plane: controller-manager
   name: controller-manager
   namespace: kotal
+  annotations:
+    helm.sh/hook: "post-install,post-upgrade"
+    helm.sh/hook-weight: "60"
 spec:
   replicas: 1
   selector:
