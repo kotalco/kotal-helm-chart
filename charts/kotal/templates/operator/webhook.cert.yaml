@@ -6,6 +6,7 @@ metadata:
   namespace: kotal
   annotations:
     helm.sh/hook: "post-install,post-upgrade"
+    helm.sh/hook-weight: "40"
 spec:
   dnsNames:
     - webhook-service.kotal.svc
