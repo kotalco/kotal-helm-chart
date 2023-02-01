@@ -14,12 +14,12 @@ spec:
       serviceAccountName: kotal-api
       containers:
         - name: kotal-api
-          image: kotalco/cloud-api:8cc250c
+          image: kotalco/cloud-api:v0.1.0
           env:
             - name: ENVIRONMENT
               value: production
             - name: DB_SERVER_URL
-              value: "postgres://satoshi:secret@kotal-postgresql:5432/kotal"
+              value: "postgres://{{ .Values.postgresql.auth.username }}:{{ .Values.postgresql.auth.password }}@kotal-postgresql:5432/{{ .Values.postgresql.auth.database }}"
             - name: SUBSCRIPTION_API_BASE_URL
               value: https://{{ if .Values.staging }}staging-{{ end }}subscriptions.kotal.co
           resources:

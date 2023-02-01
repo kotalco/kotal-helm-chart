@@ -46,7 +46,7 @@ spec:
             - --leader-elect
           command:
             - /manager
-          image: kotalco/kotal:65d5273
+          image: kotalco/kotal:v0.1.0
           livenessProbe:
             httpGet:
               path: /healthz

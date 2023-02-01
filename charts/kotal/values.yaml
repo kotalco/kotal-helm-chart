@@ -57,5 +57,5 @@ postgresql:
         memory: "100Mi"
   auth:
     username: satoshi
-    password: secret
+    password: "ecbf843e70d88b4d18912730f7a6ae03"
     database: kotal
