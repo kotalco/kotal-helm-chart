@@ -1,1 +1,7 @@
-🎉🎉🎉 Kotal has been installed successfully 🎉🎉🎉
+Kotal Pro has been installed successfully.
+
+To Access Kotal Pro dashboard:
+
+$ kubectl get svc -n traefik -w
+
+Open the external IP in your browser.
