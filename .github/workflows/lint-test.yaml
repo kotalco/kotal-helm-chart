@@ -2,10 +2,6 @@ name: Lint and Test Charts
 
 on:
   push:
-    branches:
-      - chart-lint
-    tags:
-      - 'v*'
     pull_request:
       branches:
         - main
@@ -40,7 +36,6 @@ jobs:
 
       - name: Run chart-testing (lint)
         run: |
-          echo 'validate-maintainers: false' > ct.yaml
           ct lint --validate-maintainers=false --target-branch main
 
       - name: Create kind cluster
@@ -49,7 +44,9 @@ jobs:
       - name: Run chart-testing (install)
         run: |
           helm install kotal charts/kotal --create-namespace --namespace=kotal --debug
+          sleep 60
           kubectl get pods -A
+          kubectl get svc -A
 
       - name: clean environment
         run: |
