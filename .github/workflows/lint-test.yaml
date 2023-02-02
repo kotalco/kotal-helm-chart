@@ -1,9 +1,6 @@
 name: Lint and Test Charts
 
 on:
-  push:
-    branches:
-      - chart-lint
   pull_request:
     branches:
       - main
