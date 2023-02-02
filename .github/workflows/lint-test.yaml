@@ -41,7 +41,7 @@ jobs:
       - name: Run chart-testing (lint)
         run: |
           echo 'validate-maintainers: false' > ct.yaml
-          ct lint --target-branch main
+          ct lint --validate-maintainers=false --target-branch main
 
       - name: Create kind cluster
         uses: helm/kind-action@v1.4.0
