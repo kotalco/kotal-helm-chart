@@ -2,9 +2,11 @@ name: Lint and Test Charts
 
 on:
   push:
-    pull_request:
-      branches:
-        - main
+    branches:
+      - chart-lint
+  pull_request:
+    branches:
+      - main
 
 jobs:
   lint-test:
@@ -40,6 +42,9 @@ jobs:
 
       - name: Create kind cluster
         uses: helm/kind-action@v1.4.0
+
+      - name: Run chart-dependency-update
+        run: helm dependency update charts/kotal
 
       - name: Run chart-testing (install)
         run: |
