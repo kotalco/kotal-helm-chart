@@ -1,5 +1,11 @@
 staging: false
 
+api:
+  tag: "v0.1.0"
+
+dashboard:
+  tag: "v0.1.0"
+
 traefik:
   enabled: true
   namespaceOverride: traefik
