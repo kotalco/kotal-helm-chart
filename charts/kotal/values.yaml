@@ -6,6 +6,9 @@ api:
 dashboard:
   tag: "v0.1.0"
 
+manager:
+  tag: "v0.1.0"
+
 traefik:
   enabled: true
   namespaceOverride: traefik
