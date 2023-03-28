@@ -130,3 +130,9 @@ rules:
       - list
       - patch
       - update
+  - apiGroups:
+      - metrics.k8s.io
+    resources:
+      - pods
+    verbs:
+      - get
