@@ -72,6 +72,40 @@ rules:
       - patch
       - update
   - apiGroups:
+      - bitcoin.kotal.io
+    resources:
+      - nodes
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+  - apiGroups:
+      - stacks.kotal.io
+    resources:
+      - nodes
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+  - apiGroups:
+      - aptos.kotal.io
+    resources:
+      - nodes
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+
+  - apiGroups:
       - near.kotal.io
     resources:
       - nodes
@@ -130,3 +164,9 @@ rules:
       - list
       - patch
       - update
+  - apiGroups:
+      - metrics.k8s.io
+    resources:
+      - pods
+    verbs:
+      - get
