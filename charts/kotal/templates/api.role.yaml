@@ -171,3 +171,4 @@ rules:
       - pods
     verbs:
       - get
+      - watch
