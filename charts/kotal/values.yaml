@@ -10,6 +10,9 @@ manager:
   tag: "v0.1.0"
 
 traefik:
+  experimental:
+    plugins:
+      enabled: true
   enabled: true
   namespaceOverride: traefik
   persistence:
@@ -19,6 +22,8 @@ traefik:
     - "--certificatesresolvers.myresolver.acme.tlschallenge"
     - "--certificatesresolvers.myresolver.acme.email=letsencrypt@kotal.co"
     - "--certificatesresolvers.myresolver.acme.storage=/data/acme.json"
+    - "--experimental.plugins.plugindemo.modulename=github.com/traefik/plugindemo"
+    - "--experimental.plugins.plugindemo.version=v0.2.2"
   # The "volume-permissions" init container is required if you run into permission issues.
   # Related issue: https://github.com/traefik/traefik/issues/6825
   deployment:

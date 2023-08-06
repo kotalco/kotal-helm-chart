@@ -13,6 +13,9 @@ spec:
           port: 3000
     - match: PathPrefix(`/api`)
       kind: Rule
+      middlewares:
+        - name: plugindemo
+          namespace: kotal
       services:
         - name: kotal-api
           port: 6000
