@@ -19,6 +19,8 @@ traefik:
     - "--certificatesresolvers.myresolver.acme.tlschallenge"
     - "--certificatesresolvers.myresolver.acme.email=letsencrypt@kotal.co"
     - "--certificatesresolvers.myresolver.acme.storage=/data/acme.json"
+    - "--experimental.plugins.crossover.modulename=github.com/kotalco/crossover"
+    - "--experimental.plugins.crossover.version=v0.1.2"
   # The "volume-permissions" init container is required if you run into permission issues.
   # Related issue: https://github.com/traefik/traefik/issues/6825
   deployment:
