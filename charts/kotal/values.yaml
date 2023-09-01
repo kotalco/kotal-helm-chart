@@ -19,6 +19,7 @@ traefik:
     - "--certificatesresolvers.myresolver.acme.tlschallenge"
     - "--certificatesresolvers.myresolver.acme.email=letsencrypt@kotal.co"
     - "--certificatesresolvers.myresolver.acme.storage=/data/acme.json"
+    - "--providers.kubernetescrd.allowCrossNamespace=true"
   # The "volume-permissions" init container is required if you run into permission issues.
   # Related issue: https://github.com/traefik/traefik/issues/6825
   deployment:
