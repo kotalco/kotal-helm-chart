@@ -16,10 +16,6 @@ spec:
         - name: kotal-api
           image: kotalco/cloud-api:{{ .Values.api.tag }}
           env:
-            - name: POD_NAME
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.name
             - name: POD_NAMESPACE
               valueFrom:
                 fieldRef:
@@ -35,7 +31,7 @@ spec:
             - name: CROSSOVER_PATTERN
               value: "([0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12})"
             - name: CROSSOVER_REMOTE_ADDRESS
-              value: "http://$(POD_NAME).$(POD_NAMESPACE):6000/api/v1/endpoints/stats"
+              value: "http://kotal-api.$(POD_NAMESPACE):6000/api/v1/endpoints/stats"
           resources:
             requests:
               cpu: "50m"
