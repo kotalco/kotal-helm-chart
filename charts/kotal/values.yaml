@@ -10,6 +10,9 @@ manager:
   tag: "v0.1.0"
 
 traefik:
+  experimental:
+    plugins:
+      enabled: true
   enabled: true
   namespaceOverride: traefik
   persistence:
