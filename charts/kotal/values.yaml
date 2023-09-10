@@ -12,7 +12,10 @@ manager:
 metrics-server:
   enabled: true
   namespaceOverride: metrics-server
-
+  extraArgs:
+    - --kubelet-use-node-status-port
+    - --kubelet-insecure-tls
+    - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
 traefik:
   enabled: true
   namespaceOverride: traefik
