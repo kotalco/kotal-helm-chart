@@ -9,6 +9,10 @@ dashboard:
 manager:
   tag: "v0.1.0"
 
+metrics-server:
+  enabled: true
+  namespaceOverride: metrics-server
+
 traefik:
   enabled: true
   namespaceOverride: traefik
