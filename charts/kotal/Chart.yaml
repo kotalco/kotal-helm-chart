@@ -2,8 +2,8 @@ apiVersion: v2
 name: kotal
 description: Kotal transforms your Kubernetes cluster into a powerful Node as a Service, Staking as a Service, and API gateway
 type: application
-version: 1.0.0
-appVersion: "0.1.0"
+version: 1.1.0
+appVersion: "0.2.0"
 dependencies:
   - name: "cert-manager"
     version: "1.10.1"
