@@ -1,18 +1,21 @@
 staging: false
 
 api:
-  tag: "v0.1.0"
+  tag: "v0.2.0"
 
 dashboard:
-  tag: "v0.1.0"
+  tag: "v0.2.0"
 
 manager:
-  tag: "v0.1.0"
+  tag: "v0.2.0"
 
 metrics-server:
   enabled: true
   namespaceOverride: metrics-server
-
+  extraArgs:
+    - --kubelet-use-node-status-port
+    - --kubelet-insecure-tls
+    - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
 traefik:
   enabled: true
   namespaceOverride: traefik
