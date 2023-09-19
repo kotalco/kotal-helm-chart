@@ -41,9 +41,6 @@ spec:
                 api:
                   description: API enables API server
                   type: boolean
-                apiHost:
-                  description: APIHost is API server host
-                  type: string
                 apiPort:
                   description: APIPort is API server listening port
                   type: integer
@@ -78,9 +75,6 @@ spec:
                   enum:
                     - mainnet
                     - calibration
-                  type: string
-                p2pHost:
-                  description: P2PHost is p2p host
                   type: string
                 p2pPort:
                   description: P2PPort is p2p port

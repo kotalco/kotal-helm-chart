@@ -3,4 +3,4 @@ kind: Namespace
 metadata:
   name: metrics-server
   annotations:
-    helm.sh/hook: "pre-install"
+    helm.sh/hook: "pre-install,pre-upgrade"
