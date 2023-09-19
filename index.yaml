@@ -3,6 +3,34 @@ entries:
   kotal:
   - apiVersion: v2
     appVersion: 0.2.0
+    created: "2023-09-19T16:50:47.134680789Z"
+    dependencies:
+    - condition: cert-manager.enabled
+      name: cert-manager
+      repository: https://charts.jetstack.io
+      version: 1.13.0
+    - condition: traefik.enabled
+      name: traefik
+      repository: https://traefik.github.io/charts
+      version: 24.0.0
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.11.2
+    - condition: metrics-server.enabled
+      name: metrics-server
+      repository: https://charts.bitnami.com/bitnami
+      version: 6.5.1
+    description: Kotal transforms your Kubernetes cluster into a powerful Node as
+      a Service, Staking as a Service, and API gateway
+    digest: c9de2d5f74f668278b9d10b9930f9817ac7cddf03e96394a0880e84ed24d68d9
+    name: kotal
+    type: application
+    urls:
+    - https://github.com/kotalco/kotal-helm-chart/releases/download/kotal-1.1.1/kotal-1.1.1.tgz
+    version: 1.1.1
+  - apiVersion: v2
+    appVersion: 0.2.0
     created: "2023-09-11T13:07:06.391898214Z"
     dependencies:
     - condition: cert-manager.enabled
@@ -125,4 +153,4 @@ entries:
     urls:
     - https://github.com/kotalco/kotal-helm-chart/releases/download/kotal-0.0.2/kotal-0.0.2.tgz
     version: 0.0.2
-generated: "2023-09-11T13:07:06.391931614Z"
+generated: "2023-09-19T16:50:47.134704889Z"
