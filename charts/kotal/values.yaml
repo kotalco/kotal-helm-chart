@@ -35,7 +35,10 @@ traefik:
         command:
           - "sh"
           - "-c"
-          - "touch /data/acme.json && chmod -Rv 600 /data/* && chown 65532:65532 /data/acme.json"
+          - "touch /data/acme.json && chown 65532:65532 /data/acme.json"
+        securityContext:
+          runAsGroup: 65532
+          runAsUser: 65532
         volumeMounts:
           - name: data
             mountPath: /data

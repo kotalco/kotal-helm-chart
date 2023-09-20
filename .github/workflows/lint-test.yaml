@@ -43,6 +43,10 @@ jobs:
       - name: Run chart-dependency-update
         run: helm dependency update charts/kotal
 
+      - name: Upgrading traefik CRDs
+        run: |
+          kubectl apply --server-side --force-conflicts -k https://github.com/traefik/traefik-helm-chart/traefik/crds/
+
       - name: Run chart-testing (install)
         run: |
           helm install kotal charts/kotal --create-namespace --namespace=kotal --debug
