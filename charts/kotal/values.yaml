@@ -18,6 +18,11 @@ metrics-server:
     - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
 traefik:
   enabled: true
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 0
   namespaceOverride: traefik
   persistence:
     enabled: true
