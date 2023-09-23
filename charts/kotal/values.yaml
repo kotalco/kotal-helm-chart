@@ -18,6 +18,11 @@ metrics-server:
     - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
 traefik:
   enabled: true
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 0
   namespaceOverride: traefik
   persistence:
     enabled: true
@@ -35,7 +40,10 @@ traefik:
         command:
           - "sh"
           - "-c"
-          - "touch /data/acme.json && chmod -Rv 600 /data/* && chown 65532:65532 /data/acme.json"
+          - "touch /data/acme.json && chown 65532:65532 /data/acme.json"
+        securityContext:
+          runAsGroup: 65532
+          runAsUser: 65532
         volumeMounts:
           - name: data
             mountPath: /data
