@@ -29,7 +29,7 @@ spec:
             - name: CROSSOVER_API_KEY
               value: "c7f1f03dde5fc0cab9aa53081ed08ab797ff54e52e6ff4e9a38e3e092ffcf7c5"
             - name: CROSSOVER_PATTERN
-              value: "([0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12})"
+              value: "([a-z0-9]{42})"
             - name: CROSSOVER_REMOTE_ADDRESS
               value: "http://kotal-api.$(POD_NAMESPACE):6000/api/v1/endpoints/stats"
           resources:
