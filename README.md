@@ -14,6 +14,17 @@ To install the kotal chart:
 
     helm install kotal kotal/kotal
 
+
+To upgrade the kotal chart:
+
+    # Upgrading dependencies CRDs
+    kubectl apply --server-side --force-conflicts -k https://github.com/traefik/traefik-helm-chart/traefik/crds/
+    # Update repository
+    helm repo update
+    # Upgrade kotal
+    helm upgrade kotal kotal/kotal
+
+
 To uninstall the chart:
 
     helm delete kotal
