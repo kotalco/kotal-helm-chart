@@ -33,6 +33,14 @@ traefik:
     - "--certificatesresolvers.myresolver.acme.storage=/data/acme.json"
   # The "volume-permissions" init container is required if you run into permission issues.
   # Related issue: https://github.com/traefik/traefik/issues/6825
+  # Enable experimental
+  experimental:
+    plugins:
+      # -- Enable traefik experimental plugins
+      enabled: false
+  additionalVolumeMounts:
+    - name: plugins
+      mountPath: /plugins-storage
   deployment:
     initContainers:
       - name: volume-permissions
@@ -47,6 +55,8 @@ traefik:
         volumeMounts:
           - name: data
             mountPath: /data
+    additionalVolumes:
+      - name: plugins
   resources:
     requests:
       cpu: "10m"
