@@ -41,7 +41,7 @@ jobs:
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           CR_SKIP_EXISTING: true
-  test-on-digital-ocean:
+  test-on-cloud-proviers:
     runs-on: ubuntu-latest
     needs: [release]
     if: github.event_name == 'push'
@@ -67,12 +67,37 @@ jobs:
           done
           helm dependency update kotal-helm-chart/charts/kotal
 
-      - name: K8s-set-context
+      - name: K8s-set-context to DO testing cluster
         uses: azure/k8s-set-context@v1
         with:
           method: kubeconfig
           kubeconfig: ${{ secrets.KUBECONFIG_DO_TESTING }}
 
-      - name: Testing and Update Kotal-Helm-Chart with the new kotal-chart changes
+      - name: Upgrading traefik CRDs
         run: |
-          helm upgrade kotal kotal-helm-chart/charts/kotal --install --wait --namespace=kotal --create-namespace --set "staging=true" --set=app.name=kotal --reuse-values --atomic
+          kubectl apply --server-side --force-conflicts -k https://github.com/traefik/traefik-helm-chart/traefik/crds/
+
+      - name: Testing and Update Kotal-Helm-Chart in DO with the new kotal-chart changes
+        run: |
+          helm upgrade kotal kotal-helm-chart/charts/kotal --install --wait --namespace=kotal --create-namespace --set "staging=true" --set-string "api.tag=latest" --set=app.name=kotal --atomic
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_EKS_ADMIN }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_EKS_ADMIN }}
+          aws-region: eu-central-1
+
+      - name: K8s-set-context to EKS testing cluster
+        uses: azure/k8s-set-context@v1
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBECONFIG_EKS_TESTING }}
+
+      - name: Upgrading traefik CRDs
+        run: |
+          kubectl apply --server-side --force-conflicts -k https://github.com/traefik/traefik-helm-chart/traefik/crds/
+
+      - name: Testing and Update Kotal-Helm-Chart in EKS with the new kotal-chart changes
+        run: |
+          helm upgrade kotal kotal-helm-chart/charts/kotal --install --wait --namespace=kotal --create-namespace --set "staging=true" --set-string "api.tag=latest" --set=app.name=kotal --atomic
