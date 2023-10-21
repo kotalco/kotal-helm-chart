@@ -52,7 +52,6 @@ traefik:
         securityContext:
           runAsGroup: 65532
           runAsUser: 65532
-          fsGroup: 65532
         volumeMounts:
           - name: data
             mountPath: /data
@@ -62,6 +61,8 @@ traefik:
     requests:
       cpu: "10m"
       memory: "50Mi"
+  podSecurityContext:
+    fsGroup: 65532
 
 cert-manager:
   enabled: true
