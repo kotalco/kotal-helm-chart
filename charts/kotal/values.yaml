@@ -1,4 +1,5 @@
 staging: false
+rateLimiting: false
 
 api:
   tag: "v0.1.0"
@@ -26,7 +27,7 @@ traefik:
     - "--experimental.plugins.crossover.modulename=github.com/kotalco/crossover"
     - "--experimental.plugins.crossover.version=v0.1.2"
     - "--experimental.plugins.crossover-limiter.modulename=github.com/kotalco/crossover-limiter"
-    - "--experimental.plugins.crossover-limiter.version=v0.0.3"
+    - "--experimental.plugins.crossover-limiter.version=v0.0.9"
 
   # The "volume-permissions" init container is required if you run into permission issues.
   # Related issue: https://github.com/traefik/traefik/issues/6825
