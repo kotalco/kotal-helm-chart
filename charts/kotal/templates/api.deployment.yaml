@@ -24,16 +24,24 @@ spec:
               value: production
             - name: DB_SERVER_URL
               value: "postgres://{{ .Values.postgresql.auth.username }}:{{ .Values.postgresql.auth.password }}@kotal-postgresql:5432/{{ .Values.postgresql.auth.database }}"
+              {{- if not .Values.rateLimiting }}
             - name: SUBSCRIPTION_API_BASE_URL
               value: https://{{ if .Values.staging }}staging-{{ end }}subscriptions.kotal.co
+               {{ end }}
             - name: CROSSOVER_API_KEY
               value: "c7f1f03dde5fc0cab9aa53081ed08ab797ff54e52e6ff4e9a38e3e092ffcf7c5"
-            - name: CROSSOVER_REQUEST_ID_PATTERN
+            - name: CROSSOVER_PATTERN
               value: "([a-z0-9]{42})"
-            - name: CROSSOVER_RATE_LIMIT_STORE_URL
+            - name: CROSSOVER_REMOTE_ADDRESS
               value: "http://kotal-api.$(POD_NAMESPACE):6000/api/v1/endpoints/stats"
-            - name: CROSSOVER_RATE_LIMIT_PLAN_URL
-              value: "http://kotal-api.$(POD_NAMESPACE):6000/api/v1/subscriptions/:userId/request-limit"
+              {{ if .Values.rateLimiting }}
+            - name: CROSSOVER_RATE_LIMITER_API_KEY
+              value: "c499a9cf54b4f5b8281762802b55462a8d020c835e6795ce4d1b6d268f6e32a5"
+            - name: CROSSOVER_RATE_LIMITER_REQUEST_ID_PATTERN
+              value: "([a-z0-9]{42})"
+            - name: CROSSOVER_RATE_LIMITER_PLAN_LIMIT_URL
+              value: "http://kotal-api.$(POD_NAMESPACE):6000/api/v1/subscriptions/request-limit"
+              {{ end }}
           resources:
             requests:
               cpu: "50m"
