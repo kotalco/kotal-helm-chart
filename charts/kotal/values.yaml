@@ -17,9 +17,6 @@ metrics-server:
     - --kubelet-insecure-tls
     - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
 traefik:
-  experimental:
-    plugins:
-      enabled: true
   enabled: true
   updateStrategy:
     type: RollingUpdate
