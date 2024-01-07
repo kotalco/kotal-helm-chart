@@ -2,6 +2,7 @@ staging: false
 
 api:
   tag: "v0.2.0"
+  crossover_api_key:
 
 dashboard:
   tag: "v0.2.0"
