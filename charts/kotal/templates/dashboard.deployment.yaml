@@ -15,9 +15,9 @@ spec:
         - name: kotal-dashboard
           image: kotalco/cloud-dashboard:{{ .Values.dashboard.tag }}
           env:
-            - name: NEXT_PUBLIC_BASE_URL
+            - name: API_URL
               value: /api/v1
-            - name: NEXT_PUBLIC_WS_BASE_URL
+            - name: NEXT_PUBLIC_WS_API_URL
               value: /api/v1
           resources:
             requests:
