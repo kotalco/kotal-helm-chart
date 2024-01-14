@@ -2,6 +2,7 @@ staging: false
 
 api:
   tag: "v0.2.0"
+  crossover_api_key: "c7f1f03dde5fc0cab9aa53081ed08ab797ff54e52e6ff4e9a38e3e092ffcf7c5"
 
 dashboard:
   tag: "v0.2.0"
@@ -31,6 +32,10 @@ traefik:
     - "--certificatesresolvers.myresolver.acme.tlschallenge"
     - "--certificatesresolvers.myresolver.acme.email=letsencrypt@kotal.co"
     - "--certificatesresolvers.myresolver.acme.storage=/data/acme.json"
+    - "--providers.kubernetescrd.allowCrossNamespace=true"
+    - "--experimental.plugins.crossover.modulename=github.com/kotalco/crossover"
+    - "--experimental.plugins.crossover.version=v0.1.7"
+
   # The "volume-permissions" init container is required if you run into permission issues.
   # Related issue: https://github.com/traefik/traefik/issues/6825
   # Enable experimental

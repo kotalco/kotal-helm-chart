@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - main
+      - development
 
 jobs:
   lint-test:
@@ -49,7 +50,7 @@ jobs:
 
       - name: Run chart-testing (install)
         run: |
-          helm install kotal charts/kotal --create-namespace --namespace=kotal --debug
+          helm install kotal charts/kotal --create-namespace --namespace=kotal --set-string "api.crossover_api_key=${{ secrets.CROSSOVER_API_KEY }}" --debug
           sleep 60
           kubectl get pods -A
           kubectl get svc -A
