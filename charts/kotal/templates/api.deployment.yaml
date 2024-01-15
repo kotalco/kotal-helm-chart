@@ -14,7 +14,7 @@ spec:
       serviceAccountName: kotal-api
       containers:
         - name: kotal-api
-          image: kotalco/cloud-api:{{ .Values.api.tag }}
+          image: kotalco/core-api:{{ .Values.api.tag }}
           env:
             - name: POD_NAMESPACE
               valueFrom:
