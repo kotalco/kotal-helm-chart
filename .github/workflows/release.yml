@@ -79,7 +79,7 @@ jobs:
 
       - name: Testing and Update Kotal-Helm-Chart in DO with the new kotal-chart changes
         run: |
-          helm upgrade kotal kotal-helm-chart/charts/kotal --install --wait --namespace=kotal --create-namespace --set "staging=true" --set-string "api.tag=latest" --set=app.name=kotal --set-string "api.crossover_api_key=${{ secrets.CROSSOVER_API_KEY }}" --atomic
+          helm upgrade kotal kotal-helm-chart/charts/kotal --install --wait --namespace=kotal --create-namespace --set "staging=true" --set-string "api.tag=latest" --set=app.name=kotal --set-string "api.crossover_api_key=${{ secrets.CROSSOVER_API_KEY }}" --set-string "api.sendgrid_api_key=${{ secrets.SENDGRID_API_KEY }}" --atomic
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -100,4 +100,4 @@ jobs:
 
       - name: Testing and Update Kotal-Helm-Chart in EKS with the new kotal-chart changes
         run: |
-          helm upgrade kotal kotal-helm-chart/charts/kotal --install --wait --namespace=kotal --create-namespace --set "staging=true" --set-string "api.tag=latest" --set=app.name=kotal --set-string "api.crossover_api_key=${{ secrets.CROSSOVER_API_KEY }}" --atomic
+          helm upgrade kotal kotal-helm-chart/charts/kotal --install --wait --namespace=kotal --create-namespace --set "staging=true" --set-string "api.tag=latest" --set=app.name=kotal --set-string "api.crossover_api_key=${{ secrets.CROSSOVER_API_KEY }}" --set-string "api.sendgrid_api_key=${{ secrets.SENDGRID_API_KEY }}" --atomic

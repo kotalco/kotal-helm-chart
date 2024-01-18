@@ -3,6 +3,7 @@ staging: false
 api:
   tag: "v0.2.0"
   crossover_api_key: "c7f1f03dde5fc0cab9aa53081ed08ab797ff54e52e6ff4e9a38e3e092ffcf7c5"
+  sendgrid_api_key: ""
 
 dashboard:
   tag: "v0.2.0"

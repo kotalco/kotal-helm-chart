@@ -14,7 +14,7 @@ spec:
       serviceAccountName: kotal-api
       containers:
         - name: kotal-api
-          image: kotalco/cloud-api:{{ .Values.api.tag }}
+          image: kotalco/core-api:{{ .Values.api.tag }}
           env:
             - name: POD_NAMESPACE
               valueFrom:
@@ -28,6 +28,8 @@ spec:
               value: https://{{ if .Values.staging }}staging-{{ end }}subscriptions.kotal.co
             - name: CROSSOVER_API_KEY
               value: "{{ .Values.api.crossover_api_key }}"
+            - name: CROSSOVER_API_KEY
+              value: "{{ .Values.api.sendgrid_api_key }}"
             - name: CROSSOVER_PATTERN
               value: "([a-z0-9]{42})"
             - name: CROSSOVER_REMOTE_ADDRESS
