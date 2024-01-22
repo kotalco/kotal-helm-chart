@@ -28,8 +28,8 @@ spec:
               value: https://{{ if .Values.staging }}staging-{{ end }}subscriptions.kotal.co
             - name: CROSSOVER_API_KEY
               value: "{{ .Values.api.crossover_api_key }}"
-            - name: CROSSOVER_API_KEY
-              value: "{{ .Values.api.sendgrid_api_key }}"
+            - name: SEND_GRID_API_KEY
+              value: "{{ .Values.api.send_grid_api_key }}"
             - name: CROSSOVER_PATTERN
               value: "([a-z0-9]{42})"
             - name: CROSSOVER_REMOTE_ADDRESS
