@@ -79,7 +79,7 @@ cert-manager:
       cpu: "10m"
       memory: "50Mi"
   webhook:
-    timeoutSeconds: 30
+    timeoutSeconds: 29
     resources:
       requests:
         cpu: "5m"
