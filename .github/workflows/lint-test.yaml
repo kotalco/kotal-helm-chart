@@ -50,7 +50,7 @@ jobs:
 
       - name: Run chart-testing (install)
         run: |
-          helm install kotal charts/kotal --create-namespace --namespace=kotal --set-string "api.crossover_api_key=${{ secrets.CROSSOVER_API_KEY }}" --debug
+          helm install kotal charts/kotal --create-namespace --namespace=kotal --set-string "api.tag=latest" --set-string "dashboard.tag=latest" --set=app.name=kotal --set-string "api.crossover_api_key=${{ secrets.CROSSOVER_API_KEY }}" --set-string "api.send_grid_api_key=${{ secrets.SEND_GRID_API_KEY }}" --debug
           sleep 60
           kubectl get pods -A
           kubectl get svc -A
