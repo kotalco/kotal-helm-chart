@@ -47,10 +47,22 @@ jobs:
       - name: Upgrading traefik CRDs
         run: |
           kubectl apply --server-side --force-conflicts -k https://github.com/traefik/traefik-helm-chart/traefik/crds/
+          
+      - name: Get Latest Dashboard ImageTag
+        id: dashboard_latest_tag
+        uses: luoqiz/docker-images-latest-version@master
+        with:
+          image: kotalco/cloud-dashboard
+          
+      - name: Get Latest core-api ImageTag
+        id: core-api_latest_tag
+        uses: luoqiz/docker-images-latest-version@master
+        with:
+          image: kotalco/core-api
 
       - name: Run chart-testing (install)
         run: |
-          helm install kotal charts/kotal --create-namespace --namespace=kotal --set-string "api.tag=latest" --set-string "dashboard.tag=latest" --set=app.name=kotal --set-string "api.crossover_api_key=${{ secrets.CROSSOVER_API_KEY }}" --set-string "api.send_grid_api_key=${{ secrets.SEND_GRID_API_KEY }}" --debug
+          helm install kotal charts/kotal --create-namespace --namespace=kotal --set-string "api.tag=${{ steps.core-api_latest_tag.outputs.version }}" --set-string "dashboard.tag=${{ steps.dashboard_latest_tag.outputs.version }}" --set=app.name=kotal --set-string "api.crossover_api_key=${{ secrets.CROSSOVER_API_KEY }}" --set-string "api.send_grid_api_key=${{ secrets.SEND_GRID_API_KEY }}" --debug
           sleep 60
           kubectl get pods -A
           kubectl get svc -A

@@ -54,6 +54,18 @@ jobs:
         with:
           repository: kotalco/kotal-helm-chart
           path: kotal-helm-chart
+          
+      - name: Get Latest Dashboard ImageTag
+        id: dashboard_latest_tag
+        uses: luoqiz/docker-images-latest-version@master
+        with:
+          image: kotalco/cloud-dashboard
+          
+      - name: Get Latest core-api ImageTag
+        id: core-api_latest_tag
+        uses: luoqiz/docker-images-latest-version@master
+        with:
+          image: kotalco/core-api
 
       - name: Set up Helm
         uses: azure/setup-helm@v3
@@ -79,7 +91,7 @@ jobs:
 
       - name: Testing and Update Kotal-Helm-Chart in DO with the new kotal-chart changes
         run: |
-          helm upgrade kotal kotal-helm-chart/charts/kotal --install --wait --namespace=kotal --create-namespace --set "staging=true" --set-string "api.tag=latest" --set-string "dashboard.tag=latest" --set=app.name=kotal --set-string "api.crossover_api_key=${{ secrets.CROSSOVER_API_KEY }}" --set-string "api.send_grid_api_key=${{ secrets.SEND_GRID_API_KEY }}" --atomic
+          helm upgrade kotal kotal-helm-chart/charts/kotal --install --wait --namespace=kotal --create-namespace --set "staging=true" --set-string "api.tag=${{ steps.core-api_latest_tag.outputs.version }}" --set-string "dashboard.tag=${{ steps.dashboard_latest_tag.outputs.version }}" --set=app.name=kotal --set-string "api.crossover_api_key=${{ secrets.CROSSOVER_API_KEY }}" --set-string "api.send_grid_api_key=${{ secrets.SEND_GRID_API_KEY }}" --atomic
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -100,4 +112,4 @@ jobs:
 
       - name: Testing and Update Kotal-Helm-Chart in EKS with the new kotal-chart changes
         run: |
-          helm upgrade kotal kotal-helm-chart/charts/kotal --install --wait --namespace=kotal --create-namespace --set "staging=true" --set-string "api.tag=latest" --set-string "dashboard.tag=latest" --set=app.name=kotal --set-string "api.crossover_api_key=${{ secrets.CROSSOVER_API_KEY }}" --set-string "api.send_grid_api_key=${{ secrets.SEND_GRID_API_KEY }}" --atomic
+          helm upgrade kotal kotal-helm-chart/charts/kotal --install --wait --namespace=kotal --create-namespace --set "staging=true" --set-string "api.tag=${{ steps.core-api_latest_tag.outputs.version }}" --set-string "dashboard.tag=${{ steps.dashboard_latest_tag.outputs.version }}" --set=app.name=kotal --set-string "api.crossover_api_key=${{ secrets.CROSSOVER_API_KEY }}" --set-string "api.send_grid_api_key=${{ secrets.SEND_GRID_API_KEY }}" --atomic
