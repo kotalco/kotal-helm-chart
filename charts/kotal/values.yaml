@@ -36,6 +36,8 @@ traefik:
     - "--providers.kubernetescrd.allowCrossNamespace=true"
     - "--experimental.plugins.crossover.modulename=github.com/kotalco/crossover"
     - "--experimental.plugins.crossover.version=v0.1.7"
+    - "--experimental.plugins.crossover-activity.modulename=github.com/kotalco/crossover-activity"
+    - "--experimental.plugins.crossover-activity.version=v1.0.0"
 
   # The "volume-permissions" init container is required if you run into permission issues.
   # Related issue: https://github.com/traefik/traefik/issues/6825
