@@ -34,8 +34,6 @@ traefik:
     - "--certificatesresolvers.myresolver.acme.email=letsencrypt@kotal.co"
     - "--certificatesresolvers.myresolver.acme.storage=/data/acme.json"
     - "--providers.kubernetescrd.allowCrossNamespace=true"
-    - "--experimental.plugins.crossover.modulename=github.com/kotalco/crossover"
-    - "--experimental.plugins.crossover.version=v0.1.7"
     - "--experimental.plugins.crossover-activity.modulename=github.com/kotalco/crossover-activity"
     - "--experimental.plugins.crossover-activity.version=v1.0.0"
 
